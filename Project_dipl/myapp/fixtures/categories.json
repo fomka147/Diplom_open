@@ -1,0 +1,32 @@
+[
+    {
+        "model": "myapp.category",
+        "pk": 1,
+        "fields": {
+            "name": "Машиностроение",
+            "description": "САПР для машиностроительных предприятий",
+            "icon": "bi-gear",
+            "color": "mechanical"
+        }
+    },
+    {
+        "model": "myapp.category",
+        "pk": 2,
+        "fields": {
+            "name": "Строительство",
+            "description": "Системы для архитектуры и строительства",
+            "icon": "bi-house",
+            "color": "construction"
+        }
+    },
+    {
+        "model": "myapp.category",
+        "pk": 3,
+        "fields": {
+            "name": "Электроника",
+            "description": "САПР для проектирования электронных устройств",
+            "icon": "bi-lightning",
+            "color": "electrical"
+        }
+    }
+]

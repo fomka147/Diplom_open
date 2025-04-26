@@ -1,0 +1,126 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Обновленные стили */
+    .category-section {
+        margin-bottom: 3rem;
+    }
+    .category-header {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        border-left: 5px solid #0d6efd;
+    }
+    .card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        margin-bottom: 25px; /* Увеличили отступ */
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    .row {
+        row-gap: 25px; /* Добавили вертикальные отступы между карточками */
+    }
+    /* Остальные стили остаются как в предыдущем варианте */
+</style>
+
+<div class="container">
+    <!-- Тестовая кнопка -->
+    <div class="text-center my-4">
+        <button type="button" class="btn btn-primary">Тест Bootstrap</button>
+    </div>
+
+    <!-- Все категории -->
+    <div class="category-section">
+        <div class="category-header">
+            <h2><i class="bi bi-collection"></i> Все системы САПР</h2>
+            <p class="text-muted mb-0">Полный каталог программ для проектирования</p>
+        </div>
+
+        <div class="row">
+            {% for system in all_systems %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ system.name }}</h3>
+                        <h6 class="card-subtitle mb-2">{{ system.developer }}</h6>
+                        <span class="badge price-badge mb-2">{{ system.price }} ₽</span>
+                        {% if system.is_russian %}
+                        <span class="badge russian-badge mb-2">Российское ПО</span>
+                        {% endif %}
+
+                        <p class="card-text">{{ system.short_info }}</p>
+
+                        <ul class="system-features">
+                            {% for feature in system.features.all|slice:":4" %}
+                            <li>{{ feature.name }}</li>
+                            {% endfor %}
+                        </ul>
+
+                        <a href="{{ system.official_url }}" target="_blank" class="btn btn-primary mt-2">
+                            Официальный сайт
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Отдельные категории -->
+    {% for category in categories %}
+    <div class="category-section">
+        <div class="category-header">
+            <h2>
+                <i class="bi
+                    {% if 'графич' in category.name|lower %}bi-easel
+                    {% elif 'инженерн' in category.name|lower %}bi-gear-wide-connected
+                    {% elif 'трёхмерн' in category.name|lower %}bi-cube
+                    {% elif 'управлени' in category.name|lower %}bi-folder-symlink
+                    {% else %}bi-pc-display{% endif %}
+                    me-2"></i>
+                {{ category.name }}
+            </h2>
+            <p class="text-muted mb-0">{{ category.description }}</p>
+        </div>
+
+        <div class="row">
+            {% for system in category.cadsystem_set.all %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ system.name }}</h3>
+                        <h6 class="card-subtitle mb-2">{{ system.developer }}</h6>
+                        <span class="badge price-badge mb-2">{{ system.price }} ₽</span>
+                        {% if system.is_russian %}
+                        <span class="badge russian-badge mb-2">Российское ПО</span>
+                        {% endif %}
+
+                        <p class="card-text">{{ system.short_info }}</p>
+
+                        <ul class="system-features">
+                            {% for feature in system.features.all|slice:":4" %}
+                            <li>{{ feature.name }}</li>
+                            {% endfor %}
+                        </ul>
+
+                        <a href="{{ system.official_url }}" target="_blank" class="btn btn-primary mt-2">
+                            Официальный сайт
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

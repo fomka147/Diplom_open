@@ -1,0 +1,60 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="display-6">
+            <i class="bi
+                {% if 'машин' in category.name|lower %}bi-gear
+                {% elif 'строит' in category.name|lower %}bi-house
+                {% elif 'электр' in category.name|lower %}bi-lightning
+                {% else %}bi-pc-display{% endif %}
+                me-2"></i>
+            {{ category.name }}
+        </h1>
+        <p class="text-muted">{{ category.description }}</p>
+    </div>
+    <a href="/" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Назад
+    </a>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for system in systems %}
+    <div class="col">
+        <div class="card h-100">
+            {% if system.image %}
+            <img src="{{ system.image.url }}" class="card-img-top p-3" alt="{{ system.name }}" style="height: 150px; object-fit: contain;">
+            {% else %}
+            <div class="card-img-top bg-dark d-flex align-items-center justify-content-center" style="height: 150px;">
+                <i class="bi bi-file-earmark-image fs-1 text-secondary"></i>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ system.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ system.developer }}</h6>
+                <p class="card-text">{{ system.short_info }}</p>
+
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="badge bg-primary rounded-pill">
+                        {{ system.price }} ₽
+                    </span>
+                    <a href="{{ system.official_url }}" target="_blank" class="btn btn-sm btn-outline-light">
+                        Подробнее <i class="bi bi-box-arrow-up-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                <small class="text-muted">
+                    {% if system.is_russian %}
+                    <i class="bi bi-flag-fill text-success me-1"></i> Российское ПО
+                    {% else %}
+                    <i class="bi bi-globe text-warning me-1"></i> Международное ПО
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

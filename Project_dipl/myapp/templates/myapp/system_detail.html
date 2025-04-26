@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-3">{{ system.name }}</h1>
+    <p><strong>Разработчик:</strong> {{ system.developer }}</p>
+    <p><strong>Категория:</strong> {{ system.category.name }}</p>
+    <p><strong>Тип системы:</strong> {{ system.get_system_type_display }}</p>
+    <p><strong>Тип лицензии:</strong> {{ system.get_license_type_display }}</p>
+    <p><strong>Цена:</strong> {{ system.get_price_display }}</p>
+    <p><strong>Рейтинг:</strong> ⭐ {{ system.rating }}/5</p>
+    <p><strong>Платформы:</strong> {{ system.platforms }}</p>
+
+    {% if system.image %}
+        <div class="my-4">
+            <img src="{{ system.image.url }}" alt="{{ system.name }}" class="img-fluid" style="max-width: 300px;">
+        </div>
+    {% endif %}
+
+    {% if system.screenshot %}
+        <div class="my-4">
+            <h5>Скриншот интерфейса:</h5>
+            <img src="{{ system.screenshot.url }}" alt="Screenshot of {{ system.name }}" class="img-fluid">
+        </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <h3>Описание</h3>
+        <p>{{ system.full_description|linebreaks }}</p>
+    </div>
+
+    <div class="mt-4">
+        <h4>Преимущества</h4>
+        <p>{{ system.advantages|linebreaks }}</p>
+        
+        <h4>Недостатки</h4>
+        <p>{{ system.disadvantages|linebreaks }}</p>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ system.official_url }}" class="btn btn-primary" target="_blank">Перейти на официальный сайт</a>
+        {% if system.demo_url %}
+            <a href="{{ system.demo_url }}" class="btn btn-secondary" target="_blank">Попробовать демо</a>
+        {% endif %}
+        {% if system.docs_url %}
+            <a href="{{ system.docs_url }}" class="btn btn-info" target="_blank">Документация</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

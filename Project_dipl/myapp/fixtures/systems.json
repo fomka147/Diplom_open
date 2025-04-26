@@ -1,0 +1,256 @@
+[
+  {
+    "model": "myapp.category",
+    "pk": 1,
+    "fields": {
+      "name": "Графические",
+      "description": "Для создания чертежей и визуализаций. Например, AutoCAD, CorelCAD.",
+      "icon": "bi-easel",
+      "color": "primary",
+      "slug": "graphic",
+      "order": 1,
+      "is_active": true
+    }
+  },
+  {
+    "model": "myapp.category",
+    "pk": 2,
+    "fields": {
+      "name": "Инженерные",
+      "description": "Для выполнения расчётов и симуляций. Например, ANSYS, Abaqus.",
+      "icon": "bi-gear-wide-connected",
+      "color": "danger",
+      "slug": "engineering",
+      "order": 2,
+      "is_active": true
+    }
+  },
+  {
+    "model": "myapp.category",
+    "pk": 3,
+    "fields": {
+      "name": "3D моделирование",
+      "description": "Позволяют создавать визуальные 3D-модели. Например, SOLIDWORKS, Blender.",
+      "icon": "bi-cube",
+      "color": "success",
+      "slug": "3d-modeling",
+      "order": 3,
+      "is_active": true
+    }
+  },
+  {
+    "model": "myapp.category",
+    "pk": 4,
+    "fields": {
+      "name": "Управление данными",
+      "description": "Нужны для создания проектной документации. Например, Teamcenter.",
+      "icon": "bi-folder-symlink",
+      "color": "info",
+      "slug": "data-management",
+      "order": 4,
+      "is_active": true
+    }
+  },
+  {
+    "model": "myapp.feature",
+    "pk": 1,
+    "fields": {
+      "name": "Поддержка формата DWG",
+      "icon": "bi-file-earmark-binary"
+    }
+  },
+  {
+    "model": "myapp.feature",
+    "pk": 2,
+    "fields": {
+      "name": "3D моделирование",
+      "icon": "bi-box-seam"
+    }
+  },
+  {
+    "model": "myapp.feature",
+    "pk": 3,
+    "fields": {
+      "name": "Российское ПО",
+      "icon": "bi-flag"
+    }
+  },
+  {
+    "model": "myapp.feature",
+    "pk": 4,
+    "fields": {
+      "name": "Библиотеки ГОСТ",
+      "icon": "bi-collection"
+    }
+  },
+  {
+    "model": "myapp.feature",
+    "pk": 5,
+    "fields": {
+      "name": "Параметрическое моделирование",
+      "icon": "bi-sliders"
+    }
+  },
+  {
+    "model": "myapp.cadsystem",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "name": "nanoCAD",
+      "developer": "Нанософт",
+      "short_info": "Полнофункциональная САПР, полностью заменяющая AutoCAD.",
+      "full_description": "nanoCAD - это российская CAD-платформа, предоставляющая полный набор инструментов для 2D-черчения и 3D-моделирования. Поддерживает все основные форматы, включая DWG.",
+      "price": "19700.00",
+      "license_type": "subscription",
+      "is_russian": true,
+      "system_type": "CAD",
+      "platforms": "Windows, Linux",
+      "file_formats": "DWG, DXF, IFC",
+      "advantages": "Полная совместимость с AutoCAD, низкая стоимость, российское ПО",
+      "disadvantages": "Ограниченные возможности 3D-моделирования",
+      "rating": 4.5,
+      "official_url": "https://nanocad.ru",
+      "demo_url": "https://nanocad.ru/download/",
+      "docs_url": "https://nanocad.ru/support/",
+      "is_active": true,
+      "is_featured": true,
+      "slug": "nanocad",
+      "features": [1, 3, 4]
+    }
+  },
+  {
+    "model": "myapp.cadsystem",
+    "pk": 2,
+    "fields": {
+      "category": 1,
+      "name": "КОМПАС-3D",
+      "developer": "АСКОН",
+      "short_info": "Лидер российского рынка САПР для машиностроения.",
+      "full_description": "КОМПАС-3D - это система трехмерного моделирования с возможностью автоматического получения конструкторской документации.",
+      "price": "218000.00",
+      "license_type": "permanent",
+      "is_russian": true,
+      "system_type": "CAD",
+      "platforms": "Windows",
+      "file_formats": "DWG, DXF, STEP, IGES",
+      "advantages": "Богатые библиотеки стандартных элементов, поддержка ГОСТ",
+      "disadvantages": "Высокая стоимость, работает только под Windows",
+      "rating": 4.8,
+      "official_url": "https://ascon.ru",
+      "demo_url": "https://ascon.ru/products/kompas-3d/trial/",
+      "docs_url": "https://ascon.ru/support/docs/",
+      "is_active": true,
+      "is_featured": true,
+      "slug": "kompas-3d",
+      "features": [2, 3, 4, 5]
+    }
+  },
+  {
+    "model": "myapp.cadsystem",
+    "pk": 3,
+    "fields": {
+      "category": 2,
+      "name": "ANSYS",
+      "developer": "ANSYS Inc.",
+      "short_info": "Мощная система инженерного анализа.",
+      "full_description": "ANSYS предоставляет комплексные решения для инженерного анализа, включая структурный анализ, гидрогазодинамику и электромагнитное моделирование.",
+      "price": "350000.00",
+      "license_type": "subscription",
+      "is_russian": false,
+      "system_type": "CAE",
+      "platforms": "Windows, Linux",
+      "file_formats": "STEP, IGES, STL",
+      "advantages": "Широкий спектр возможностей анализа, высокая точность",
+      "disadvantages": "Высокая стоимость, сложность освоения",
+      "rating": 4.9,
+      "official_url": "https://www.ansys.com",
+      "demo_url": "https://www.ansys.com/products/free-student-products",
+      "docs_url": "https://www.ansys.com/resource-center",
+      "is_active": true,
+      "is_featured": true,
+      "slug": "ansys",
+      "features": [2]
+    }
+  },
+  {
+    "model": "myapp.cadsystem",
+    "pk": 4,
+    "fields": {
+      "category": 3,
+      "name": "Blender",
+      "developer": "Blender Foundation",
+      "short_info": "Бесплатное решение для 3D-моделирования.",
+      "full_description": "Blender - это бесплатный и открытый 3D-редактор, поддерживающий весь конвейер 3D-создания: моделирование, скульптинг, анимацию и рендеринг.",
+      "price": "0.00",
+      "license_type": "free",
+      "is_russian": false,
+      "system_type": "CAD",
+      "platforms": "Windows, Linux, macOS",
+      "file_formats": "OBJ, FBX, STL, 3DS",
+      "advantages": "Бесплатный, открытый исходный код, мощные возможности",
+      "disadvantages": "Сложный интерфейс, не поддерживает DWG",
+      "rating": 4.7,
+      "official_url": "https://www.blender.org",
+      "demo_url": "https://www.blender.org/download/",
+      "docs_url": "https://docs.blender.org",
+      "is_active": true,
+      "is_featured": false,
+      "slug": "blender",
+      "features": [2]
+    }
+  },
+  {
+    "model": "myapp.cadsystem",
+    "pk": 5,
+    "fields": {
+      "category": 4,
+      "name": "Teamcenter",
+      "developer": "Siemens",
+      "short_info": "Система управления жизненным циклом изделий.",
+      "full_description": "Teamcenter - это комплексное решение для управления данными об изделиях (PDM/PLM), позволяющее организовать совместную работу над проектами.",
+      "price": "500000.00",
+      "license_type": "subscription",
+      "is_russian": false,
+      "system_type": "PLM",
+      "platforms": "Windows, Linux",
+      "file_formats": "JT, STEP, PDF",
+      "advantages": "Интеграция с другими решениями Siemens, мощные возможности",
+      "disadvantages": "Очень высокая стоимость, сложность внедрения",
+      "rating": 4.6,
+      "official_url": "https://www.plm.automation.siemens.com/global/ru/products/teamcenter/",
+      "demo_url": "https://www.plm.automation.siemens.com/global/ru/products/teamcenter/trial.html",
+      "docs_url": "https://docs.plm.automation.siemens.com/tdoc/teamcenter",
+      "is_active": true,
+      "is_featured": false,
+      "slug": "teamcenter",
+      "features": []
+    }
+  },
+  {
+    "model": "myapp.cadsystem",
+    "pk": 6,
+    "fields": {
+      "category": 3,
+      "name": "T-FLEX CAD",
+      "developer": "Топ Системы",
+      "short_info": "Параметрическая САПР с мощными возможностями 2D/3D моделирования.",
+      "full_description": "T-FLEX CAD - это параметрическая система автоматизированного проектирования с поддержкой 2D-черчения и 3D-моделирования.",
+      "price": "164900.00",
+      "license_type": "permanent",
+      "is_russian": true,
+      "system_type": "CAD",
+      "platforms": "Windows",
+      "file_formats": "DWG, DXF, STEP, IGES",
+      "advantages": "Параметрическое моделирование, поддержка ГОСТ",
+      "disadvantages": "Ограниченная поддержка Mac/Linux",
+      "rating": 4.4,
+      "official_url": "https://tflex.ru",
+      "demo_url": "https://tflex.ru/download/",
+      "docs_url": "https://tflex.ru/support/",
+      "is_active": true,
+      "is_featured": true,
+      "slug": "tflex-cad",
+      "features": [1, 2, 3, 5]
+    }
+  }
+]

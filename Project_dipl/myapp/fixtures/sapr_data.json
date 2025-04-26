@@ -1,0 +1,28 @@
+[
+  {
+    "model": "myapp.category",
+    "pk": 1,
+    "fields": {
+      "name": "Машиностроение",
+      "description": "Российские САПР для машиностроения",
+      "icon": "bi-gear",
+      "color": "mechanical"
+    }
+  },
+  {
+    "model": "myapp.cadsystem",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "name": "КОМПАС-3D",
+      "developer": "АСКОН",
+      "short_info": "Лидер российского рынка САПР",
+      "price": 250000,
+      "official_url": "https://ascon.ru",
+      "is_russian": true,
+      "system_type": "CAD",
+      "advantages": "Полная поддержка ГОСТ, русский интерфейс",
+      "disadvantages": "Ограниченная совместимость с зарубежными форматами"
+    }
+  }
+]
