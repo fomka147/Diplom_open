@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from datetime import date
 
 class CADSystem(models.Model):
     name = models.CharField(max_length=100)
