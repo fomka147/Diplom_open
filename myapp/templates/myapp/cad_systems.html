@@ -1,0 +1,38 @@
+{% extends 'cad_sys/base.html' %}
+{% load static %}
+{% block title %}Список САПР-систем{% endblock %}
+{% block content %}
+    <h1>САПР-системы</h1>
+    <form method="get">
+        <input type="text" name="q" value="{{ query }}" placeholder="Поиск по названию">
+        <select name="category">
+            <option value="">Все категории</option>
+            {% for value, label in categories %}
+                <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Найти</button>
+    </form>
+    <ul>
+        {% for cad in page_obj %}
+            <li>
+                <a href="{% url 'cad_sys:cad_detail' cad.pk %}">{{ cad.name }}</a> ({{ cad.get_category_display }})
+            </li>
+        {% empty %}
+            <p>САПР-системы не найдены.</p>
+        {% endfor %}
+    </ul>
+    {% if page_obj.has_other_pages %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">« Назад</a>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                <a href="?page={{ num }}" {% if page_obj.number == num %}class="active"{% endif %}>{{ num }}</a>
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Вперед »</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

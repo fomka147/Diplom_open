@@ -1,0 +1,14 @@
+{% extends 'cad_sys/base.html' %}
+{% block title %}{{ cad.name }}{% endblock %}
+{% block content %}
+    <h1>{{ cad.name }}</h1>
+    <p><strong>Производитель:</strong> {{ cad.manufacturer }}</p>
+    <p><strong>Категория:</strong> {{ cad.get_category_display }}</p>
+    <p><strong>Описание:</strong> {{ cad.description }}</p>
+    <p><strong>Цена:</strong> {{ cad.price }} руб.</p>
+    <p><strong>Дата выпуска:</strong> {{ cad.release_date }}</p>
+    {% if cad.image %}
+        <img src="{{ cad.image.url }}" alt="{{ cad.name }}" style="max-width: 300px;">
+    {% endif %}
+    <a href="{% url 'cad_sys:cad_systems' %}">Назад к списку</a>
+{% endblock %}

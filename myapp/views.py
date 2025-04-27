@@ -1,95 +1,40 @@
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
-from .models import Category, CADSystem
-
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from .models import CADSystem
 
 def index(request):
-    """Главная страница со всеми категориями и системами"""
-    categories = Category.objects.filter(is_active=True).order_by('order')
-    featured_systems = CADSystem.objects.filter(
-        is_active=True,
-        is_featured=True
-    ).select_related('category')[:6]
+    return render(request, 'cad_sys/index.html')
 
-    # Получаем системы для каждой категории (по 3 на категорию)
-    categorized_systems = {}
-    for category in categories:
-        systems = category.systems.filter(is_active=True)[:3]
-        if systems:
-            categorized_systems[category] = systems
+class CADSystemListView(ListView):
+    model = CADSystem
+    template_name = 'cad_sys/cad_systems.html'
+    context_object_name = 'page_obj'
+    paginate_by = 10
 
-    context = {
-        'categories': categories,
-        'featured_systems': featured_systems,
-        'categorized_systems': categorized_systems,
-        'all_systems_count': CADSystem.objects.filter(is_active=True).count(),
-    }
-    return render(request, 'myapp/index.html', context)
+    def get_queryset(self):
+        queryset = CADSystem.objects.all()
+        query = self.request.GET.get('q')
+        category = self.request.GET.get('category')
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+        if category:
+            queryset = queryset.filter(category=category)
+        return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('q', '')
+        context['category'] = self.request.GET.get('category', '')
+        context['categories'] = CADSystem._meta.get_field('category').choices
+        return context
 
-def category_detail(request, slug):
-    """Детальная страница категории со всеми системами"""
-    category = get_object_or_404(Category, slug=slug, is_active=True)
-    systems = category.systems.filter(is_active=True).select_related('category')
+class CADSystemDetailView(DetailView):
+    model = CADSystem
+    template_name = 'cad_sys/cad_detail.html'
+    context_object_name = 'cad'
 
-    # Фильтрация по параметрам
-    system_type = request.GET.get('type')
-    license_type = request.GET.get('license')
-    is_russian = request.GET.get('russian')
+def contacts(request):
+    return render(request, 'cad_sys/contacts.html')
 
-    if system_type:
-        systems = systems.filter(system_type=system_type)
-    if license_type:
-        systems = systems.filter(license_type=license_type)
-    if is_russian:
-        systems = systems.filter(is_russian=(is_russian == 'true'))
-
-    # Сортировка
-    sort_by = request.GET.get('sort', 'name')
-    if sort_by == 'price_asc':
-        systems = systems.order_by('price')
-    elif sort_by == 'price_desc':
-        systems = systems.order_by('-price')
-    elif sort_by == 'rating':
-        systems = systems.order_by('-rating')
-    else:
-        systems = systems.order_by('name')
-
-    context = {
-        'category': category,
-        'systems': systems,
-        'system_types': CADSystem.TYPE_CHOICES,
-        'license_types': CADSystem.LICENSE_CHOICES,
-        'current_filters': {
-            'system_type': system_type,
-            'license_type': license_type,
-            'is_russian': is_russian,
-            'sort_by': sort_by,
-        }
-    }
-    return render(request, 'myapp/category_detail.html', context)
-
-
-def system_detail(request, slug):
-    """Детальная страница конкретной системы"""
-    system = get_object_or_404(CADSystem, slug=slug, is_active=True)
-    context = {
-        'system': system
-    }
-    return render(request, 'myapp/system_detail.html', context)
-
-
-def search(request):
-    """Поиск систем по названию"""
-    query = request.GET.get('q')
-    systems = []
-    if query:
-        systems = CADSystem.objects.filter(
-            Q(name__icontains=query) |
-            Q(description__icontains=query)
-        ).filter(is_active=True)
-    context = {
-        'systems': systems,
-        'query': query,
-    }
-    return render(request, 'myapp/search_results.html', context)
+def about(request):
+    return render(request, 'cad_sys/about.html')
