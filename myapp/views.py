@@ -3,12 +3,12 @@ from django.views.generic import ListView, DetailView
 from .models import CADSystem
 
 def index(request):
-    return render(request, 'cad_sys/index.html')
+    return render(request, 'myapp/index.html')
 
 class CADSystemListView(ListView):
     model = CADSystem
-    template_name = 'cad_sys/cad_systems.html'
-    context_object_name = 'page_obj'
+    template_name = 'myapp/cad_systems.html'
+    context_object_name = 'cad_systems'
     paginate_by = 10
 
     def get_queryset(self):
@@ -30,11 +30,11 @@ class CADSystemListView(ListView):
 
 class CADSystemDetailView(DetailView):
     model = CADSystem
-    template_name = 'cad_sys/cad_detail.html'
+    template_name = 'myapp/cad_detail.html'
     context_object_name = 'cad'
 
 def contacts(request):
-    return render(request, 'cad_sys/contacts.html')
+    return render(request, 'myapp/contacts.html')
 
 def about(request):
-    return render(request, 'cad_sys/about.html')
+    return render(request, 'myapp/about.html')

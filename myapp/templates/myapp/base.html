@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Каталог САПР-систем для проектирования и моделирования.">
-    <meta name="keywords" content="САПР, CAD, проектирование, машиностроение, архитектура">
-    <title>{% block title %}САПР-системы{% endblock %}</title>
+    <meta name="description" content="Каталог САПР-систем">
+    <title>{% block title %}САПР-Каталог{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
         <nav>
-            <a href="{% url 'cad_sys:index' %}">Главная</a>
-            <a href="{% url 'cad_sys:cad_systems' %}">САПР-системы</a>
-            <a href="{% url 'cad_sys:contacts' %}">Контакты</a>
-            <a href="{% url 'cad_sys:about' %}">О проекте</a>
+            <a href="{% url 'myapp:index' %}">Главная</a>
+            <a href="{% url 'myapp:cad_systems' %}">Каталог</a>
+            <a href="{% url 'myapp:contacts' %}">Контакты</a>
+            <a href="{% url 'myapp:about' %}">О проекте</a>
+            <a href="/admin/" target="_blank">Админка</a>
         </nav>
     </header>
     <main>
@@ -22,7 +23,7 @@
         {% endblock %}
     </main>
     <footer>
-        <p>&copy; 2025 САПР-каталог</p>
+        <p>© 2025 САПР-Каталог</p>
     </footer>
 </body>
 </html>

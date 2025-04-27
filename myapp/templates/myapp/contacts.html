@@ -1,7 +1,8 @@
-{% extends 'cad_sys/base.html' %}
+{% extends 'myapp/base.html' %}
 {% block title %}Контакты{% endblock %}
 {% block content %}
     <h1>Контакты</h1>
-    <p>Email: info@sapr-catalog.ru</p>
-    <p>Телефон: +7 (951) 448-66-37</p>
+    <p><strong>Email:</strong> info@sapr-catalog.ru</p>
+    <p><strong>Телефон:</strong> +7 (123) 456-78-90</p>
+    <a href="{% url 'myapp:index' %}" class="btn">На главную</a>
 {% endblock %}

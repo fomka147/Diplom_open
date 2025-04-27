@@ -1,9 +1,9 @@
-{% extends 'cad_sys/base.html' %}
+{% extends 'myapp/base.html' %}
 {% load static %}
-{% block title %}Список САПР-систем{% endblock %}
+{% block title %}Каталог САПР{% endblock %}
 {% block content %}
-    <h1>САПР-системы</h1>
-    <form method="get">
+    <h1>Каталог САПР-систем</h1>
+    <form method="get" class="filter-form">
         <input type="text" name="q" value="{{ query }}" placeholder="Поиск по названию">
         <select name="category">
             <option value="">Все категории</option>
@@ -13,25 +13,28 @@
         </select>
         <button type="submit">Найти</button>
     </form>
-    <ul>
-        {% for cad in page_obj %}
-            <li>
-                <a href="{% url 'cad_sys:cad_detail' cad.pk %}">{{ cad.name }}</a> ({{ cad.get_category_display }})
-            </li>
+    <div class="cad-grid">
+        {% for cad in cad_systems %}
+            <div class="cad-card">
+                <h3><a href="{% url 'myapp:cad_detail' cad.pk %}">{{ cad.name }}</a></h3>
+                <p><strong>Категория:</strong> {{ cad.get_category_display }}</p>
+                <p><strong>Производитель:</strong> {{ cad.manufacturer }}</p>
+                <p><strong>Цена:</strong> {{ cad.price }} руб.</p>
+            </div>
         {% empty %}
             <p>САПР-системы не найдены.</p>
         {% endfor %}
-    </ul>
+    </div>
     {% if page_obj.has_other_pages %}
         <div class="pagination">
             {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}">« Назад</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}{% if category %}&category={{ category }}{% endif %}">« Назад</a>
             {% endif %}
             {% for num in page_obj.paginator.page_range %}
-                <a href="?page={{ num }}" {% if page_obj.number == num %}class="active"{% endif %}>{{ num }}</a>
+                <a href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}{% if category %}&category={{ category }}{% endif %}" {% if page_obj.number == num %}class="active"{% endif %}>{{ num }}</a>
             {% endfor %}
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Вперед »</a>
+                <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}{% if category %}&category={{ category }}{% endif %}">Вперед »</a>
             {% endif %}
         </div>
     {% endif %}

@@ -1,6 +1,7 @@
-{% extends 'cad_sys/base.html' %}
+{% extends 'myapp/base.html' %}
 {% block title %}О проекте{% endblock %}
 {% block content %}
     <h1>О проекте</h1>
-    <p>Каталог САПР-систем создан для удобного выбора программного обеспечения для проектирования.</p>
+    <p>САПР-Каталог помогает выбрать программное обеспечение для проектирования.</p>
+    <a href="{% url 'myapp:index' %}" class="btn">На главную</a>
 {% endblock %}

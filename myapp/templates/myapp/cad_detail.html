@@ -1,4 +1,4 @@
-{% extends 'cad_sys/base.html' %}
+{% extends 'myapp/base.html' %}
 {% block title %}{{ cad.name }}{% endblock %}
 {% block content %}
     <h1>{{ cad.name }}</h1>
@@ -10,5 +10,5 @@
     {% if cad.image %}
         <img src="{{ cad.image.url }}" alt="{{ cad.name }}" style="max-width: 300px;">
     {% endif %}
-    <a href="{% url 'cad_sys:cad_systems' %}">Назад к списку</a>
+    <a href="{% url 'myapp:cad_systems' %}" class="btn">Назад к каталогу</a>
 {% endblock %}
