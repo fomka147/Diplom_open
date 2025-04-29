@@ -6,31 +6,47 @@
 {% block content %}
 <main>
     <form method="get" class="search">
-    <input type="text" name="q" placeholder="Поиск САПР..." value="{{ request.GET.q }}">
-    <button type="submit">Найти</button>
-</form>
+        <input type="text" name="q" placeholder="Поиск САПР..." value="{{ request.GET.q }}">
+        <button type="submit">Найти</button>
+    </form>
     <h1>Каталог САПР-систем</h1>
     <div class="filter">
         <form method="get">
-            <label for="category">Фильтр по категории:</label>
+            <label for="category">Категория:</label>
             <select name="category" id="category" onchange="this.form.submit()">
                 <option value="">Все категории</option>
                 {% for value, label in categories %}
                 <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
             </select>
+            <label for="manufacturer">Производитель:</label>
+            <select name="manufacturer" id="manufacturer" onchange="this.form.submit()">
+                <option value="">Все производители</option>
+                {% for item in manufacturers %}
+                <option value="{{ item.manufacturer }}" {% if request.GET.manufacturer == item.manufacturer %}selected{% endif %}>{{ item.manufacturer }}</option>
+                {% endfor %}
+            </select>
+            <label for="price_min">Цена от:</label>
+            <input type="number" name="price_min" id="price_min" value="{{ request.GET.price_min }}" placeholder="Мин. цена">
+            <label for="price_max">до:</label>
+            <input type="number" name="price_max" id="price_max" value="{{ request.GET.price_max }}" placeholder="Макс. цена">
+            <button type="submit">Применить</button>
         </form>
     </div>
     <div class="cad-list">
         {% for cad in cad_systems %}
         <div class="cad-item">
-            {% if cad.image %}
-            <img src="{{ cad.image.url }}" alt="{{ cad.name }}">
-            {% endif %}
+            <img src="{% if cad.image %}{{ cad.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}" alt="{{ cad.name }}">
             <h3>{{ cad.name }}</h3>
-            <p>Производитель: {{ cad.manufacturer }}</p>
-            <p>категория: {{ cad.get_category_display }}</p>
+            <p>Производитель: {{ cad.developer }}</p>
+            <p>Категория: {{ cad.category.name }}</p>
             <p>Цена: {{ cad.price }} ₽</p>
+            {% if cad.is_russian %}
+            <span class="russian-label">Российское ПО</span>
+            {% endif %}
+            {% if cad.official_url %}
+            <a href="{{ cad.official_url }}" class="website-link" target="_blank">Официальный сайт</a>
+            {% endif %}
             {% if cad.slug %}
             <a href="{% url 'myapp:cad_detail' cad.slug %}">Подробнее</a>
             {% else %}

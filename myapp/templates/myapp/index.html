@@ -19,12 +19,16 @@
         <div class="cad-list">
             {% for cad in popular_cads %}
             <div class="cad-item">
-                {% if cad.image %}
-                <img src="{{ cad.image.url }}" alt="{{ cad.name }}">
-                {% endif %}
+                <img src="{% if cad.image %}{{ cad.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}" alt="{{ cad.name }}">
                 <h3>{{ cad.name }}</h3>
-                <p>Производитель: {{ cad.manufacturer }}</p>
+                <p>Производитель: {{ cad.developer }}</p>
                 <p>Цена: {{ cad.price }} ₽</p>
+                {% if cad.is_russian %}
+                <span class="russian-label">Российское ПО</span>
+                {% endif %}
+                {% if cad.official_url %}
+                <a href="{{ cad.official_url }}" class="website-link" target="_blank">Официальный сайт</a>
+                {% endif %}
                 <a href="{% url 'myapp:cad_detail' cad.slug %}">Подробнее</a>
             </div>
             {% empty %}
