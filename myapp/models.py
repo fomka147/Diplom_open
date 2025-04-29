@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from pytils.translit import slugify as pytils_slugify
 from datetime import date
 
 class CADSystem(models.Model):
@@ -19,7 +20,8 @@ class CADSystem(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.name)
+            # Используем pytils для транслитерации кириллицы
+            base_slug = pytils_slugify(self.name)
             if not base_slug:
                 base_slug = f"cad-{self.name.lower().replace(' ', '-')}"
             slug = base_slug
@@ -41,7 +43,7 @@ class Article(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = pytils_slugify(self.title)
         super().save(*args, **kwargs)
 
     def __str__(self):
