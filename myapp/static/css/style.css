@@ -1,124 +1,63 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
 }
+
 header {
-    background-color: #1A237E;
-    padding: 10px 0;
+    background-color: #007bff;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 nav {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
 }
-nav a {
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav a, nav ul li a {
     color: white;
     text-decoration: none;
-    padding: 10px 20px;
     font-weight: bold;
+    transition: color 0.3s ease;
+    padding: 10px 20px;
 }
-nav a:hover {
+
+nav a:hover, nav ul li a:hover {
     background-color: #26A69A;
     border-radius: 5px;
+    color: #ffcc00;
 }
+
 main {
     max-width: 1200px;
     margin: 20px auto;
     padding: 0 20px;
 }
+
 footer {
-    background-color: #1A237E;
+    background-color: #333;
     color: white;
     text-align: center;
     padding: 10px 0;
-    width: 100%;
-}
-.cad-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-}
-.cad-item {
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.cad-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-.cad-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-.cad-item h3 {
-    color: #1A237E;
-    margin: 10px 0;
-}
-.cad-item p {
-    font-size: 0.9em;
-    color: #555;
-}
-.filter {
-    margin-bottom: 20px;
-}
-.filter label {
-    margin-right: 10px;
-}
-.filter select {
-    padding: 5px;
-    font-size: 1em;
-    border-radius: 5px;
-}
-.banner {
-    background-color: #1A237E;
-    color: white;
-    text-align: center;
-    padding: 50px 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-.banner h1 {
-    margin: 0;
-    font-size: 2em;
-}
-.banner p {
-    font-size: 1.2em;
-}
-.btn {
-    display: inline-block;
-    background-color: #26A69A;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-.btn:hover {
-    background-color: #1A237E;
-}
-.intro {
-    text-align: center;
+    margin-top: 20px;
 }
 
-.article-list {
-    display: grid;
-    gap: 20px;
-}
-.article-item {
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
 .cad-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -127,10 +66,10 @@ footer {
 }
 
 .cad-item {
-    background-color: #fff;
+    background-color: white;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 100%;
@@ -154,7 +93,7 @@ footer {
 .cad-item h3 {
     font-size: 1.2em;
     margin: 10px 0;
-    color: #333;
+    color: #1A237E;
 }
 
 .cad-item p {
@@ -168,7 +107,7 @@ footer {
     margin-top: 10px;
     padding: 8px 16px;
     background-color: #007bff;
-    color: #fff;
+    color: white;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -177,9 +116,10 @@ footer {
 .cad-item a:hover {
     background-color: #0056b3;
 }
+
 .banner {
     background: linear-gradient(to right, #007bff, #00c4ff);
-    color: #fff;
+    color: white;
     text-align: center;
     padding: 50px 20px;
     border-radius: 10px;
@@ -197,7 +137,7 @@ footer {
 }
 
 .banner .btn {
-    background-color: #fff;
+    background-color: white;
     color: #007bff;
     padding: 10px 20px;
     text-decoration: none;
@@ -208,6 +148,41 @@ footer {
 
 .banner .btn:hover {
     background-color: #e0e0e0;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #26A69A;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #1A237E;
+}
+
+.filter {
+    margin-bottom: 20px;
+}
+
+.filter label {
+    margin-right: 10px;
+}
+
+.filter select {
+    padding: 8px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+}
+
+.filter select:focus {
+    border-color: #ff6200;
+    outline: none;
 }
 
 .intro, .popular, .advantages {
@@ -233,60 +208,15 @@ footer {
     margin: 10px 0;
     color: #555;
 }
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
+
+.article-list {
+    display: grid;
+    gap: 20px;
 }
 
-header {
-    background-color: #007bff;
-    padding: 15px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-    color: #ffcc00;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
-}
-
-/* Анимация для фильтра */
-.filter select {
-    padding: 8px;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    transition: border-color 0.3s ease;
-}
-
-.filter select:focus {
-    border-color: #ff6200;
-    outline: none;
+.article-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
