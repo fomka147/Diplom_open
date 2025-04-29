@@ -1,12 +1,14 @@
 from django.urls import path
-from . import views
+from .views import IndexView, CADSystemListView, CADSystemDetailView, ContactsView, AboutView
 
 app_name = 'myapp'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('cad_systems/', views.CADSystemListView.as_view(), name='cad_systems'),
-    path('cad_systems/<int:pk>/', views.CADSystemDetailView.as_view(), name='cad_detail'),
-    path('contacts/', views.contacts, name='contacts'),
-    path('about/', views.about, name='about'),
+    path('', IndexView.as_view(), name='index'),
+    path('cad_systems/', CADSystemListView.as_view(), name='cad_systems'),
+    path('cad_systems/<slug:slug>/', CADSystemDetailView.as_view(), name='cad_detail'),
+    path('contacts/', ContactsView.as_view(), name='contacts'),
+    path('about/', AboutView.as_view(), name='about'),
+    path('articles/', ArticleListView.as_view(), name='articles'),
+    path('articles/<slug:slug>/', ArticleDetailView.as_view(), name='article_detail'),
 ]

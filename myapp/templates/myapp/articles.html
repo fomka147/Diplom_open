@@ -1,0 +1,21 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}Статьи{% endblock %}
+
+{% block content %}
+<main>
+    <h1>Статьи о САПР</h1>
+    <div class="article-list">
+        {% for article in articles %}
+        <div class="article-item">
+            <h3>{{ article.title }}</h3>
+            <p>{{ article.content|truncatewords:30 }}</p>
+            <a href="{% url 'myapp:article_detail' article.slug %}">Читать далее</a>
+        </div>
+        {% empty %}
+        <p>Статьи пока не добавлены.</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

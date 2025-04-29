@@ -7,16 +7,16 @@
 <main>
     <h1>Каталог САПР-систем</h1>
     <div class="filter">
-    <form method="get">
-        <label for="category">Фильтр по категории:</label>
-        <select name="category" id="category" onchange="this.form.submit()">
-            <option value="">Все категории</option>
-            {% for value, label in categories %}
-            <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-    </form>
-</div>
+        <form method="get">
+            <label for="category">Фильтр по категории:</label>
+            <select name="category" id="category" onchange="this.form.submit()">
+                <option value="">Все категории</option>
+                {% for value, label in categories %}
+                <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
     <div class="cad-list">
         {% for cad in cad_systems %}
         <div class="cad-item">
@@ -27,7 +27,11 @@
             <p>Производитель: {{ cad.manufacturer }}</p>
             <p>Категория: {{ cad.get_category_display }}</p>
             <p>Цена: {{ cad.price }} ₽</p>
+            {% if cad.slug %}
             <a href="{% url 'myapp:cad_detail' cad.slug %}">Подробнее</a>
+            {% else %}
+            <p>Детали недоступны</p>
+            {% endif %}
         </div>
         {% empty %}
         <p>САПР-системы не найдены.</p>

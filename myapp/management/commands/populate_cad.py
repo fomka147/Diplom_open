@@ -106,8 +106,10 @@ class Command(BaseCommand):
         ]
 
         for cad in cad_systems:
-            # Проверяем уникальность slug
+            # Гарантируем уникальный slug
             base_slug = slugify(cad['name'])
+            if not base_slug:  # Если slug пустой, используем запасной
+                base_slug = f"cad-{cad['name'].lower().replace(' ', '-')}"
             slug = base_slug
             counter = 1
             while CADSystem.objects.filter(slug=slug).exists():

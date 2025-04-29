@@ -36,3 +36,8 @@ class ContactsView(TemplateView):
 
 class AboutView(TemplateView):
     template_name = 'myapp/about.html'
+
+class ArticleListView(ListView):
+    model = Article
+    template_name = 'myapp/articles.html'
+    context_object_name = 'articles'

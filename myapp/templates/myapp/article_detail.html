@@ -1,0 +1,13 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<main>
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.created_at|date:"F j, Y" }}</p>
+    <p>{{ article.content }}</p>
+    <a href="{% url 'myapp:articles' %}">Назад к статьям</a>
+</main>
+{% endblock %}
