@@ -1,31 +1,29 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView
 from .models import CADSystem
 
-def index(request):
-    return render(request, 'myapp/index.html')
+class IndexView(TemplateView):
+    template_name = 'myapp/index.html'
 
 class CADSystemListView(ListView):
     model = CADSystem
     template_name = 'myapp/cad_systems.html'
     context_object_name = 'cad_systems'
-    paginate_by = 10
 
     def get_queryset(self):
-        queryset = CADSystem.objects.all()
-        query = self.request.GET.get('q')
+        queryset = super().get_queryset()
         category = self.request.GET.get('category')
-        if query:
-            queryset = queryset.filter(name__icontains=query)
         if category:
             queryset = queryset.filter(category=category)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['query'] = self.request.GET.get('q', '')
-        context['category'] = self.request.GET.get('category', '')
-        context['categories'] = CADSystem._meta.get_field('category').choices
+        context['categories'] = [
+            ('mechanical', 'Машиностроение'),
+            ('architecture', 'Архитектура'),
+            ('cnc', 'ЧПУ'),
+            ('other', 'Другое'),
+        ]
         return context
 
 class CADSystemDetailView(DetailView):
@@ -33,8 +31,8 @@ class CADSystemDetailView(DetailView):
     template_name = 'myapp/cad_detail.html'
     context_object_name = 'cad'
 
-def contacts(request):
-    return render(request, 'myapp/contacts.html')
+class ContactsView(TemplateView):
+    template_name = 'myapp/contacts.html'
 
-def about(request):
-    return render(request, 'myapp/about.html')
+class AboutView(TemplateView):
+    template_name = 'myapp/about.html'

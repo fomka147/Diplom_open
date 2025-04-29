@@ -1,41 +1,37 @@
 {% extends 'myapp/base.html' %}
 {% load static %}
+
 {% block title %}Каталог САПР{% endblock %}
+
 {% block content %}
+<main>
     <h1>Каталог САПР-систем</h1>
-    <form method="get" class="filter-form">
-        <input type="text" name="q" value="{{ query }}" placeholder="Поиск по названию">
-        <select name="category">
+    <div class="filter">
+    <form method="get">
+        <label for="category">Фильтр по категории:</label>
+        <select name="category" id="category" onchange="this.form.submit()">
             <option value="">Все категории</option>
             {% for value, label in categories %}
-                <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
+            <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
-        <button type="submit">Найти</button>
     </form>
-    <div class="cad-grid">
+</div>
+    <div class="cad-list">
         {% for cad in cad_systems %}
-            <div class="cad-card">
-                <h3><a href="{% url 'myapp:cad_detail' cad.pk %}">{{ cad.name }}</a></h3>
-                <p><strong>Категория:</strong> {{ cad.get_category_display }}</p>
-                <p><strong>Производитель:</strong> {{ cad.manufacturer }}</p>
-                <p><strong>Цена:</strong> {{ cad.price }} руб.</p>
-            </div>
+        <div class="cad-item">
+            {% if cad.image %}
+            <img src="{{ cad.image.url }}" alt="{{ cad.name }}">
+            {% endif %}
+            <h3>{{ cad.name }}</h3>
+            <p>Производитель: {{ cad.manufacturer }}</p>
+            <p>Категория: {{ cad.get_category_display }}</p>
+            <p>Цена: {{ cad.price }} ₽</p>
+            <a href="{% url 'myapp:cad_detail' cad.slug %}">Подробнее</a>
+        </div>
         {% empty %}
-            <p>САПР-системы не найдены.</p>
+        <p>САПР-системы не найдены.</p>
         {% endfor %}
     </div>
-    {% if page_obj.has_other_pages %}
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}{% if category %}&category={{ category }}{% endif %}">« Назад</a>
-            {% endif %}
-            {% for num in page_obj.paginator.page_range %}
-                <a href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}{% if category %}&category={{ category }}{% endif %}" {% if page_obj.number == num %}class="active"{% endif %}>{{ num }}</a>
-            {% endfor %}
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}{% if category %}&category={{ category }}{% endif %}">Вперед »</a>
-            {% endif %}
-        </div>
-    {% endif %}
+</main>
 {% endblock %}
