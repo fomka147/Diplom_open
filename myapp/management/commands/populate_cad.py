@@ -9,7 +9,6 @@ class Command(BaseCommand):
     help = 'Populate the database with CAD systems'
 
     def handle(self, *args, **kwargs):
-        # Полная очистка таблицы
         CADSystem.objects.all().delete()
 
         cad_systems = [
@@ -106,16 +105,6 @@ class Command(BaseCommand):
         ]
 
         for cad in cad_systems:
-            # Гарантируем уникальный slug
-            base_slug = slugify(cad['name'])
-            if not base_slug:  # Если slug пустой, используем запасной
-                base_slug = f"cad-{cad['name'].lower().replace(' ', '-')}"
-            slug = base_slug
-            counter = 1
-            while CADSystem.objects.filter(slug=slug).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-
             cad_obj = CADSystem(
                 name=cad['name'],
                 manufacturer=cad['manufacturer'],
@@ -123,7 +112,6 @@ class Command(BaseCommand):
                 description=cad['description'],
                 price=cad['price'],
                 release_date=cad['release_date'],
-                slug=slug,
             )
             if cad.get('image'):
                 image_path = os.path.join('D:/Diplom_open/media/', cad['image'])

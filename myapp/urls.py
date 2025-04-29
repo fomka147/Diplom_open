@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import IndexView, CADSystemListView, CADSystemDetailView, ContactsView, AboutView
+from .views import IndexView, CADSystemListView, CADSystemDetailView, ContactsView, AboutView, ArticleListView, ArticleDetailView
 
 app_name = 'myapp'
 

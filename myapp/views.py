@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import CADSystem
+from .models import CADSystem, Article
 
 class IndexView(TemplateView):
     template_name = 'myapp/index.html'
@@ -41,3 +41,8 @@ class ArticleListView(ListView):
     model = Article
     template_name = 'myapp/articles.html'
     context_object_name = 'articles'
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'myapp/article_detail.html'
+    context_object_name = 'article'
