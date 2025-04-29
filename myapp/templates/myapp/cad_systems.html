@@ -5,6 +5,10 @@
 
 {% block content %}
 <main>
+    <form method="get" class="search">
+    <input type="text" name="q" placeholder="Поиск САПР..." value="{{ request.GET.q }}">
+    <button type="submit">Найти</button>
+</form>
     <h1>Каталог САПР-систем</h1>
     <div class="filter">
         <form method="get">
@@ -25,7 +29,7 @@
             {% endif %}
             <h3>{{ cad.name }}</h3>
             <p>Производитель: {{ cad.manufacturer }}</p>
-            <p>Категория: {{ cad.get_category_display }}</p>
+            <p>категория: {{ cad.get_category_display }}</p>
             <p>Цена: {{ cad.price }} ₽</p>
             {% if cad.slug %}
             <a href="{% url 'myapp:cad_detail' cad.slug %}">Подробнее</a>
