@@ -21,8 +21,10 @@
             <div class="cad-item">
                 <img src="{% if cad.image %}{{ cad.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}" alt="{{ cad.name }}">
                 <h3>{{ cad.name }}</h3>
+                <p>{{ cad.short_info }}</p>
                 <p>Производитель: {{ cad.developer }}</p>
                 <p>Цена: {{ cad.price }} ₽</p>
+                <p class="rating">Рейтинг: {{ cad.rating }} / 5</p>
                 {% if cad.is_russian %}
                 <span class="russian-label">Российское ПО</span>
                 {% endif %}

@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import CADSystem, Article
+from .models import CADSystem, Article, Category
 from django.db.models import Q
 
 class IndexView(TemplateView):
@@ -7,7 +7,7 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['popular_cads'] = CADSystem.objects.all()[:4]
+        context['popular_cads'] = CADSystem.objects.filter(is_featured=True)[:4]
         return context
 
 class CADSystemListView(ListView):
@@ -16,35 +16,30 @@ class CADSystemListView(ListView):
     context_object_name = 'cad_systems'
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(is_active=True)
         category = self.request.GET.get('category')
         query = self.request.GET.get('q')
         price_min = self.request.GET.get('price_min')
         price_max = self.request.GET.get('price_max')
-        manufacturer = self.request.GET.get('manufacturer')
+        developer = self.request.GET.get('developer')
 
         if category:
-            queryset = queryset.filter(category=category)
+            queryset = queryset.filter(category__slug=category)
         if query:
             queryset = queryset.filter(name__icontains=query)
         if price_min:
             queryset = queryset.filter(price__gte=price_min)
         if price_max:
             queryset = queryset.filter(price__lte=price_max)
-        if manufacturer:
-            queryset = queryset.filter(manufacturer__iexact=manufacturer)
+        if developer:
+            queryset = queryset.filter(developer__iexact=developer)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = [
-            ('mechanical', 'Машиностроение'),
-            ('architecture', 'Архитектура'),
-            ('cnc', 'ЧПУ'),
-            ('other', 'Другое'),
-        ]
-        context['manufacturers'] = CADSystem.objects.values('manufacturer').distinct()
+        context['categories'] = Category.objects.filter(is_active=True).values('slug', 'name')
+        context['developers'] = CADSystem.objects.values('developer').distinct()
         return context
 
 class CADSystemDetailView(DetailView):

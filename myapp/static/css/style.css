@@ -103,6 +103,11 @@ footer {
     margin: 5px 0;
 }
 
+.cad-item .rating {
+    color: #ff6200;
+    font-weight: bold;
+}
+
 .cad-item a {
     display: inline-block;
     margin-top: 10px;
@@ -135,6 +140,53 @@ footer {
     padding: 4px 8px;
     border-radius: 12px;
     margin: 5px 0;
+}
+
+.cad-detail {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.cad-detail img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.cad-info p {
+    font-size: 1em;
+    margin: 10px 0;
+}
+
+.cad-info p strong {
+    color: #1A237E;
+}
+
+.cad-description h2, .cad-description h3 {
+    color: #1A237E;
+    margin: 15px 0 10px;
+}
+
+.cad-description p, .cad-description ul {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.6;
+}
+
+.cad-description ul {
+    padding-left: 20px;
+}
+
+.cad-links {
+    margin-top: 20px;
+}
+
+.cad-links a {
+    margin-right: 10px;
 }
 
 .banner {
@@ -274,3 +326,26 @@ footer {
     height: 200px;
     object-fit: cover;
 }
+
+.site-logo {
+    max-height: 50px;
+    width: auto;
+    vertical-align: middle;
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #003087;
+    padding: 10px 20px;
+}
+.site-logo {
+     max-height: 100px; /* Увеличиваем высоту логотипа */
+     max-width: 800px; /* Ограничиваем ширину для пропорций */
+     width: auto;
+     vertical-align: middle;
+ }
+
+ .logo {
+     text-decoration: none;
+ }

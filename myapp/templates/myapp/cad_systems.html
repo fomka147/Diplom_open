@@ -15,15 +15,15 @@
             <label for="category">Категория:</label>
             <select name="category" id="category" onchange="this.form.submit()">
                 <option value="">Все категории</option>
-                {% for value, label in categories %}
-                <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
+                {% for cat in categories %}
+                <option value="{{ cat.slug }}" {% if request.GET.category == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
                 {% endfor %}
             </select>
-            <label for="manufacturer">Производитель:</label>
-            <select name="manufacturer" id="manufacturer" onchange="this.form.submit()">
+            <label for="developer">Производитель:</label>
+            <select name="developer" id="developer" onchange="this.form.submit()">
                 <option value="">Все производители</option>
-                {% for item in manufacturers %}
-                <option value="{{ item.manufacturer }}" {% if request.GET.manufacturer == item.manufacturer %}selected{% endif %}>{{ item.manufacturer }}</option>
+                {% for item in developers %}
+                <option value="{{ item.developer }}" {% if request.GET.developer == item.developer %}selected{% endif %}>{{ item.developer }}</option>
                 {% endfor %}
             </select>
             <label for="price_min">Цена от:</label>
@@ -38,9 +38,11 @@
         <div class="cad-item">
             <img src="{% if cad.image %}{{ cad.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}" alt="{{ cad.name }}">
             <h3>{{ cad.name }}</h3>
+            <p>{{ cad.short_info }}</p>
             <p>Производитель: {{ cad.developer }}</p>
             <p>Категория: {{ cad.category.name }}</p>
             <p>Цена: {{ cad.price }} ₽</p>
+            <p class="rating">Рейтинг: {{ cad.rating }} / 5</p>
             {% if cad.is_russian %}
             <span class="russian-label">Российское ПО</span>
             {% endif %}

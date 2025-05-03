@@ -1,14 +1,55 @@
 {% extends 'myapp/base.html' %}
-{% block title %}{{ cad.name }}{% endblock %}
+{% load static %}
+
+{% block title %}{{ cad.name }} - Подробности{% endblock %}
+
 {% block content %}
+<main>
     <h1>{{ cad.name }}</h1>
-    <p><strong>Производитель:</strong> {{ cad.manufacturer }}</p>
-    <p><strong>Категория:</strong> {{ cad.get_category_display }}</p>
-    <p><strong>Описание:</strong> {{ cad.description }}</p>
-    <p><strong>Цена:</strong> {{ cad.price }} руб.</p>
-    <p><strong>Дата выпуска:</strong> {{ cad.release_date }}</p>
-    {% if cad.image %}
-        <img src="{{ cad.image.url }}" alt="{{ cad.name }}" style="max-width: 300px;">
-    {% endif %}
-    <a href="{% url 'myapp:cad_systems' %}" class="btn">Назад к каталогу</a>
+    <div class="cad-detail">
+        <img src="{% if cad.image %}{{ cad.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}" alt="{{ cad.name }}">
+        <div class="cad-info">
+            <p><strong>Производитель:</strong> {{ cad.developer }}</p>
+            <p><strong>Категория:</strong> {{ cad.category.name }}</p>
+            <p><strong>Тип системы:</strong> {{ cad.system_type }}</p>
+            <p><strong>Цена:</strong> {{ cad.price }} ₽</p>
+            <p><strong>Лицензия:</strong> {{ cad.get_license_type_display }}</p>
+            <p><strong>Дата выпуска:</strong> {{ cad.release_date }}</p>
+            <p><strong>Платформы:</strong> {{ cad.platforms }}</p>
+            <p><strong>Форматы файлов:</strong> {{ cad.file_formats }}</p>
+            <p><strong>Рейтинг:</strong> {{ cad.rating }} / 5</p>
+            {% if cad.is_russian %}
+            <span class="russian-label">Российское ПО</span>
+            {% endif %}
+        </div>
+        <div class="cad-description">
+            <h2>Описание</h2>
+            <p>{{ cad.full_description }}</p>
+            <h3>Преимущества</h3>
+            <p>{{ cad.advantages }}</p>
+            <h3>Недостатки</h3>
+            <p>{{ cad.disadvantages }}</p>
+            {% if cad.features.all %}
+            <h3>Характеристики</h3>
+            <ul>
+                {% for feature in cad.features.all %}
+                <li>{{ feature.name }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="cad-links">
+            {% if cad.official_url %}
+            <a href="{{ cad.official_url }}" class="website-link" target="_blank">Официальный сайт</a>
+            {% endif %}
+            {% if cad.demo_url %}
+            <a href="{{ cad.demo_url }}" class="btn" target="_blank">Скачать демо</a>
+            {% endif %}
+            {% if cad.docs_url %}
+            <a href="{{ cad.docs_url }}" class="btn" target="_blank">Документация</a>
+            {% endif %}
+            <a href="{% url 'myapp:cad_systems' %}" class="btn">Назад к каталогу</a>
+        </div>
+    </div>
+</main>
 {% endblock %}
