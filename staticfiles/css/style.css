@@ -7,14 +7,35 @@ body {
 }
 
 header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: #003087;
-    padding: 15px 0;
+    padding: 10px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-nav {
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.site-logo {
+    max-height: 100px;
+    max-width: 800px;
+    width: auto;
+    vertical-align: middle;
+}
+
+.logo {
+    text-decoration: none;
+}
+
+nav {
     display: flex;
     justify-content: space-around;
 }
@@ -22,11 +43,12 @@ nav {
 nav ul {
     list-style: none;
     padding: 0;
-    text-align: center;
+    margin: 0;
+    display: flex;
+    align-items: center;
 }
 
 nav ul li {
-    display: inline;
     margin: 0 15px;
 }
 
@@ -42,6 +64,44 @@ nav a:hover, nav ul li a:hover {
     background-color: #26A69A;
     border-radius: 5px;
     color: #ffcc00;
+}
+
+/* Telegram-блок */
+.telegram-block {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.telegram-btn {
+    display: flex;
+    align-items: center;
+    background-color: #26A69A;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.telegram-btn:hover {
+    background-color: #1A237E;
+}
+
+.telegram-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+}
+
+.telegram-icon:hover {
+    transform: scale(1.1);
+}
+
+.telegram-text {
+    font-size: 14px;
+    font-weight: bold;
 }
 
 main {
@@ -327,25 +387,37 @@ footer {
     object-fit: cover;
 }
 
-.site-logo {
-    max-height: 50px;
-    width: auto;
-    vertical-align: middle;
-}
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #003087;
-    padding: 10px 20px;
-}
-.site-logo {
-     max-height: 150px; /* Увеличиваем высоту логотипа */
-     max-width: 800px; /* Ограничиваем ширину для пропорций */
-     width: auto;
-     vertical-align: middle;
- }
+/* Адаптивность */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
- .logo {
-     text-decoration: none;
- }
+/* Telegram Button - Яркая версия */
+.telegram-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0088cc, #00aced);
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 2px 10px rgba(0, 136, 204, 0.3);
+    margin-left: 20px;
+    border: 2px solid white;
+}
+
+.telegram-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+    background: linear-gradient(135deg, #00aced, #0088cc);
+}
+
+.telegram-btn img {
+    filter: brightness(0) invert(1);
+}
+}

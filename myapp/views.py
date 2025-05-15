@@ -1,7 +1,12 @@
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import CADSystem, Article, Category
 from django.db.models import Q
+from .models import CADSystem, Article, Category, FAQ, MigrationGuide
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import CADSystemSerializer, FAQSerializer, MigrationGuideSerializer
 
+
+# Веб-представления для шаблонов (оставлены без изменений)
 class IndexView(TemplateView):
     template_name = 'myapp/index.html'
 
@@ -9,6 +14,7 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['popular_cads'] = CADSystem.objects.filter(is_featured=True)[:4]
         return context
+
 
 class CADSystemListView(ListView):
     model = CADSystem
@@ -42,23 +48,66 @@ class CADSystemListView(ListView):
         context['developers'] = CADSystem.objects.values('developer').distinct()
         return context
 
+
 class CADSystemDetailView(DetailView):
     model = CADSystem
     template_name = 'myapp/cad_detail.html'
     context_object_name = 'cad'
 
+
 class ContactsView(TemplateView):
     template_name = 'myapp/contacts.html'
 
+
 class AboutView(TemplateView):
     template_name = 'myapp/about.html'
+
 
 class ArticleListView(ListView):
     model = Article
     template_name = 'myapp/articles.html'
     context_object_name = 'articles'
 
+
 class ArticleDetailView(DetailView):
     model = Article
     template_name = 'myapp/article_detail.html'
     context_object_name = 'article'
+
+
+# API-представления для Telegram-бота
+class CADSystemSearchView(APIView):
+    def get(self, request):
+        query = request.GET.get('q', '')
+        cad_systems = CADSystem.objects.filter(
+            Q(name__icontains=query) |
+            Q(short_info__icontains=query) |
+            Q(full_description__icontains=query) |
+            Q(developer__icontains=query)
+        ).filter(is_active=True)
+        serializer = CADSystemSerializer(cad_systems, many=True)
+        return Response(serializer.data)
+
+
+class FAQSearchView(APIView):
+    def get(self, request):
+        query = request.GET.get('q', '')
+        faqs = FAQ.objects.filter(
+            Q(question__icontains=query) |
+            Q(keywords__icontains=query)
+        )
+        for faq in faqs:
+            faq.usage_count += 1
+            faq.save()
+        serializer = FAQSerializer(faqs, many=True)
+        return Response(serializer.data)
+
+
+class MigrationGuideView(APIView):
+    def get(self, request):
+        query = request.GET.get('software', '')
+        guides = MigrationGuide.objects.filter(
+            foreign_software__icontains=query
+        )
+        serializer = MigrationGuideSerializer(guides, many=True)
+        return Response(serializer.data)

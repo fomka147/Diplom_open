@@ -1,34 +1,38 @@
 <!DOCTYPE html>
-     {% load static %}
-     <html lang="ru">
-     <head>
-         <meta charset="UTF-8">
-         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <title>{% block title %}RusCADHub{% endblock %}</title>
-         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-         <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-     </head>
-     <body>
-         <header>
-             <a href="{% url 'myapp:index' %}" class="logo">
-                 <img src="{% static 'images/logo.png' %}" alt="RusCADHub" class="site-logo">
-             </a>
-             <nav>
-                 <ul>
-                     <li><a href="{% url 'myapp:index' %}">Главная</a></li>
-                     <li><a href="{% url 'myapp:cad_systems' %}">Каталог САПР</a></li>
-                     <li><a href="{% url 'myapp:articles' %}">Статьи</a></li>
-                     <li><a href="{% url 'myapp:about' %}">О проекте</a></li>
-                     <li><a href="{% url 'myapp:contacts' %}">Контакты</a></li>
-                 </ul>
-             </nav>
-         </header>
-         <main>
-             {% block content %}
-             {% endblock %}
-         </main>
-         <footer>
-             <p>© 2025 RusCADHub. Все права защищены.</p>
-         </footer>
-     </body>
-     </html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RusCADHub{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <a href="{% url 'myapp:index' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="RusCADHub" class="site-logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="{% url 'myapp:index' %}">Главная</a></li>
+                <li><a href="{% url 'myapp:cad_systems' %}">Каталог САПР</a></li>
+                <li><a href="{% url 'myapp:articles' %}">Статьи</a></li>
+                <li><a href="{% url 'myapp:about' %}">О проекте</a></li>
+                <li><a href="{% url 'myapp:contacts' %}">Контакты</a></li>
+            </ul>
+        </nav>
+        <a href="https://t.me/RusCADHubBot" class="telegram-btn" target="_blank">
+    <img src="{% static 'images/telegram.svg' %}" alt="Telegram" width="50">
+    Наш бот помощник
+</a>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>© 2025 RusCADHub. Все права защищены.</p>
+    </footer>
+</body>
+</html>

@@ -19,7 +19,7 @@
         <div class="cad-list">
             {% for cad in popular_cads %}
             <div class="cad-item">
-                <img src="{% if cad.image %}{{ cad.image.url }}{% else %}{% static 'images/placeholder.png' %}{% endif %}" alt="{{ cad.name }}">
+                <img src="{% if cad.image %}{{ cad.image.url }}{% else %}{% static 'myapp/images/placeholder.png' %}{% endif %}" alt="{{ cad.name }}">
                 <h3>{{ cad.name }}</h3>
                 <p>{{ cad.short_info }}</p>
                 <p>Производитель: {{ cad.developer }}</p>
